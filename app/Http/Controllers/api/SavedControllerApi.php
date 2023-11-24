@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Saved;
+use App\Models\Sponsorship;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,10 @@ class SavedControllerApi extends Controller
     public function index()
     {
         $user = Auth::user();
-        $saved = Saved::where("id_users", $user->id)->get();
+        $saved = Saved::with('sponsorship', )->where("id_users", $user->id)->get();
 
         if ($user->id_role == 1) {
-            return response()->json([
-                'success' => true,
-                'data' => $saved
-            ], 200);
+            return response()->json($saved, 200);
         } else {
             return response()->json([
                 "success" => false,
@@ -40,7 +38,6 @@ class SavedControllerApi extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_event' => 'required',
             'id_sponsorship' => 'required'
         ]);
 
@@ -55,18 +52,8 @@ class SavedControllerApi extends Controller
         $user = Auth::user();
 
 
-        try {
-            $event = Event::findOrFail($request->id_event);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data event tidak ditemukan'
-            ], 404);
-        }
-
-        if (($user->id_role == 1) && ($event->id_users == $user->id)) {
+        if (($user->id_role == 1)) {
             $saved = Saved::create([
-                'id_event' => $event->id,
                 'id_sponsorship' => $request->id_sponsorship,
                 'id_users' => $user->id
             ]);

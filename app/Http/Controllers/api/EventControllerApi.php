@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EventControllerApi extends Controller
@@ -19,7 +20,7 @@ class EventControllerApi extends Controller
     public function index()
     {
         $user = Auth::user();
-        $events = Event::where("id_users", $user->id)->get();
+        $events = Event::with('users')->where("id_users", $user->id)->get();
 
         return response()->json($events);
     }
@@ -66,12 +67,12 @@ class EventControllerApi extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Gagal menambahkan data, periksa kembali data anda'
-                ],400);
+                ], 400);
             }
             return response()->json([
                 'success' => true,
                 'message' => 'Data Berhasil Ditambahkan',
-                'data' => $event
+                'data' => $event,
             ], 201);
         } else {
             return response()->json([

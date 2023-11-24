@@ -11,6 +11,21 @@ class Proposal extends Model
 
     protected $table = 'proposals';
     protected $fillable = [
-        'proposal', 'id_sponsorship', 'id_event', 'id_status','id_users'
+        'proposal',
+        'id_sponsorship',
+        'id_event',
+        'id_status',
+        'id_users',
+        'message'
     ];
+
+
+    public function sponsorship()
+    {
+        return $this->belongsTo(Sponsorship::class, 'id_sponsorship');
+    }
+
+    public function status(){
+        return $this->belongsTo(Status::class,'id_status');
+    }
 }

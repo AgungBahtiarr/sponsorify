@@ -20,14 +20,10 @@ class ProposalControllerApi extends Controller
     public function index()
     {
         $user = Auth::user();
-        $proposals = Proposal::where("id_users", $user->id)->get();
+        $proposals = Proposal::with('sponsorship','status')->where("id_users", $user->id)->get();
 
         if ($user->id_role == 1) {
-            return response()->json([
-                "success" => true,
-                "message" => "Data Proposal",
-                "data" => $proposals
-            ], 200);
+            return response()->json($proposals, 200);
         } else {
             return response()->json([
                 "success" => false,
@@ -61,14 +57,13 @@ class ProposalControllerApi extends Controller
      */
     public function store(Request $request)
     {
-        // ddd($request->all());
         $user = Auth::user();
 
         $validator = Validator::make($request->all(), [
             'proposal' => 'required|mimes:pdf,docx,doc|max:12048',
             'id_sponsorship' => 'required',
             'id_event' => 'required',
-            'id_status' => 'required',
+            'id_status' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -76,7 +71,7 @@ class ProposalControllerApi extends Controller
                 'success' => false,
                 'message' => 'periksa kembali inputan anda',
                 'errors' => $validator->errors()
-            ]);
+            ], 401);
         }
 
         $file = $request->file('proposal');
@@ -151,7 +146,6 @@ class ProposalControllerApi extends Controller
         }
 
         $beforePath = public_path($proposal->proposal);
-        // return $beforePath;
         File::delete($beforePath);
 
         $file = $request->file('proposal');
@@ -159,33 +153,27 @@ class ProposalControllerApi extends Controller
         $file->move(public_path('proposal'), $fileName);
         $filePath = 'proposal/' . $fileName;
 
-        if (($user->id_role == 1) && ($proposal->id_users == $user->id)) {
-            try {
-                $proposal->update([
-                    'proposal' => $filePath,
-                    'id_sponsorship' => $request->id_sponsorship,
-                    'id_event' => $request->id_event,
-                    'id_users' => $user->id,
-                    'id_status' => $request->id_status,
-                ]);
-            } catch (QueryException $e) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => 'periksa kembali data anda'
-                ], 400);
-            }
-            return response()->json([
-                'success' => true,
-                'message' => "berhasil mengupdate data",
-                'data' => $proposal
-            ], 201);
-        } else {
-            # code...
+        try {
+            $proposal->update([
+                'proposal' => $filePath,
+                'id_sponsorship' => $request->id_sponsorship,
+                'id_event' => $request->id_event,
+                'id_users' => $user->id,
+                'id_status' => $request->id_status,
+                'message' => $request->message,
+            ]);
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'role tidak diizinkan'
-            ], 403);
+                'errors' => 'periksa kembali data anda'
+            ], 400);
         }
+        return response()->json([
+            'success' => true,
+            'message' => "berhasil mengupdate data",
+            'data' => $proposal
+        ], 201);
+
     }
 
     /**

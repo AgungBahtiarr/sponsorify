@@ -48,4 +48,12 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
+
+    public function sponsorship(){
+        return $this->hasMany(Sponsorship::class);
+    }
+
+    public function event(){
+        return $this->hasMany(Event::class);
+    }
 }

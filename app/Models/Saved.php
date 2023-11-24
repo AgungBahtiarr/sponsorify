@@ -11,8 +11,12 @@ class Saved extends Model
     protected $table = 'saveds';
 
     protected $fillable = [
-        'id_event',
         'id_sponsorship',
         'id_users'
     ];
+
+    public function sponsorship()
+    {
+        return $this->belongsTo(Sponsorship::class, 'id_sponsorship');
+    }
 }

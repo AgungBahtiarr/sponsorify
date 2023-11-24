@@ -20,4 +20,19 @@ class Sponsorship extends Model
         'id_category',
         'id_users'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_users');
+    }
+
+    // public function saved()
+    // {
+    //     return $this->hasMany(Saved::class, 'id_');
+    // }
 }

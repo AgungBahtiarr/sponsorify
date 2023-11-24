@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryControllerApi extends Controller
@@ -12,7 +13,18 @@ class CategoryControllerApi extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return response()->json($categories, 200);
+    }
+
+
+    public function sponsorshipWithCategory($idCategory)
+    {
+
+        $categories = Category::all()->where('id', $idCategory);
+
+        return response()->json($categories, 200);
+
     }
 
     /**

@@ -18,10 +18,19 @@ class SponsorshipControllerApi extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $sponsorship = Sponsorship::where("id_users", $user->id)->get();
+        $sponsorships = Sponsorship::with("category", "user")->get();
 
-        return response()->json($sponsorship);
+        return response()->json($sponsorships);
+    }
+
+    public function sponsorshipWithCategory($idCategory)
+    {
+        // $sponsorships = Sponsorship::all()->where('id_category', $idCategory);
+
+        $sponsorships = Sponsorship::with("category", "user")->where('id_category',$idCategory)->get();
+
+
+        return response()->json($sponsorships);
     }
 
     /**
@@ -89,7 +98,9 @@ class SponsorshipControllerApi extends Controller
      */
     public function show(string $id)
     {
+        $sponsorships = Sponsorship::with("category", "user")->find($id);
 
+        return response()->json($sponsorships);
     }
 
     /**
@@ -112,7 +123,7 @@ class SponsorshipControllerApi extends Controller
                 'error' => $validator->errors()
             ]);
         }
-        
+
         try {
             $sponsorship = Sponsorship::findOrFail($id);
         } catch (ModelNotFoundException $e) {

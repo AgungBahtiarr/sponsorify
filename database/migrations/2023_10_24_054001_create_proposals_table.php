@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
             $table->string('proposal')->nullable(false);
+            $table->text('message')->nullable(true);
             $table->unsignedBigInteger('id_sponsorship')->nullable(false);
             $table->unsignedBigInteger('id_event')->nullable(false);
             $table->unsignedBigInteger('id_users')->nullable(false);
