@@ -20,7 +20,7 @@ class ProposalControllerApi extends Controller
     public function index()
     {
         $user = Auth::user();
-        $proposals = Proposal::with('sponsorship','status')->where("id_users", $user->id)->get();
+        $proposals = Proposal::with('sponsorship', 'status')->where("id_users", $user->id)->get();
 
         if ($user->id_role == 1) {
             return response()->json($proposals, 200);
@@ -36,20 +36,15 @@ class ProposalControllerApi extends Controller
     {
         $user = Auth::user();
         $sponsorship = Sponsorship::where("id_users", $user->id)->first();
-        $proposals = Proposal::where("id_sponsorship", $sponsorship->id)->get();
+        $proposals = Proposal::with('status', 'event')->where("id_sponsorship", $sponsorship->id)->get();
         if ($user->id_role == 2) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data ditemukan',
-                'data' => $proposals
-            ], 200);
+            return response()->json($proposals, 200);
         } else {
             return response()->json([
                 "success" => false,
                 "message" => "Role tidak diizinkan"
             ], 403);
         }
-
     }
 
     /**
@@ -92,7 +87,7 @@ class ProposalControllerApi extends Controller
             } catch (QueryException $e) {
                 return response()->json([
                     'success' => false,
-                    'errors' => 'periksa kembali data anda'
+                    'errors' => 'periksa kembali data anda' . $e
                 ], 400);
             }
             return response()->json([
@@ -100,6 +95,28 @@ class ProposalControllerApi extends Controller
                 'message' => "berhasil menambahkan data",
                 'data' => $proposal
             ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'role tidak diizinkan'
+            ], 403);
+        }
+    }
+
+    public function countProposal()
+    {
+        try {
+            $user = Auth::user();
+            $sponsor = Sponsorship::where('id_users', $user->id)->first();
+            $count = Proposal::where('id_sponsorship', $sponsor->id)->where('id_status', 1)->count();
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+            ], 500);
+        }
+
+        if ($user->id_role == 2) {
+            return response()->json($count);
         } else {
             return response()->json([
                 'success' => false,
@@ -174,6 +191,36 @@ class ProposalControllerApi extends Controller
             'data' => $proposal
         ], 201);
 
+    }
+
+    public function updateProposalSponsorship(Request $request, $id)
+    {
+
+        $user = Auth::user();
+
+        if ($user->id_role == 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'role tidak diizinkan'
+            ], 403);
+        } else {
+            try {
+                $proposal = Proposal::findOrFail($id);
+                $proposal->update([
+                    'message' => $request->message,
+                    'id_status' => $request->id_status
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'data' => $proposal
+                ], 200);
+            } catch (QueryException $e) {
+                return response()->json([
+                    'success' => false
+                ], 500);
+            }
+
+        }
     }
 
     /**

@@ -83,6 +83,6 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
         return response()->json([
             'success' => true
-        ]);
+        ], 200);
     }
 }

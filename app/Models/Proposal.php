@@ -25,7 +25,13 @@ class Proposal extends Model
         return $this->belongsTo(Sponsorship::class, 'id_sponsorship');
     }
 
-    public function status(){
-        return $this->belongsTo(Status::class,'id_status');
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'id_event');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\api\ProposalControllerApi;
 use App\Http\Controllers\api\SavedControllerApi;
 use App\Http\Controllers\api\SponsorshipControllerApi;
 use App\Http\Controllers\api\UnLoginController;
+use App\Http\Controllers\api\UserControllerApi;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Authentication
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/register', [AuthController::class, 'register']);
+
+// User
+Route::get('/user', [UserControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::patch('/user', [UserControllerApi::class, 'update'])->middleware('auth:sanctum');
+
 
 // Handle UnLogin
 Route::get('', [UnLoginController::class, 'index'])->name('login');
@@ -40,24 +46,31 @@ Route::delete('', [UnLoginController::class, 'index'])->name('login');
 
 // Event
 Route::get('/event', [EventControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::get('/event/{id}', [EventControllerApi::class, 'show'])->middleware('auth:sanctum');
 Route::post('/event', [EventControllerApi::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/event/{id}', [EventControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/event/{id}', [EventControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
 
 //Sponsorship
+Route::get('/sponsorship/detail', [SponsorshipControllerApi::class, 'detailAuthSponsorship'])->middleware('auth:sanctum');
 Route::get('/sponsorship', [SponsorshipControllerApi::class, 'index'])->middleware('auth:sanctum');
 Route::get('/sponsorship/{id}', [SponsorshipControllerApi::class, 'show'])->middleware('auth:sanctum');
+// Route::get('/sponsorship/detail', [SponsorshipControllerApi::class, 'detailAuthSponsorship'])->middleware('auth:sanctum');
+Route::get('/sponsorship/count/{id}', [SponsorshipControllerApi::class, 'count']);
 Route::get('/sponsorship/category/{idCategory}', [SponsorshipControllerApi::class, 'sponsorshipWithCategory']);
 Route::post('/sponsorship', [SponsorshipControllerApi::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/sponsorship/{id}', [SponsorshipControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/sponsorship/{id}', [SponsorshipControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
+
 // Proposal
 Route::get('/proposal', [ProposalControllerApi::class, 'index'])->middleware('auth:sanctum');
 Route::get('/proposal/sponsorship', [ProposalControllerApi::class, 'indexSponsor'])->middleware('auth:sanctum');
+Route::get('/proposal/sponsorship/count', [ProposalControllerApi::class, 'countProposal'])->middleware('auth:sanctum');
 Route::post('/proposal', [ProposalControllerApi::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/proposal/{id}', [ProposalControllerApi::class, 'update'])->middleware('auth:sanctum');
+Route::patch('/proposal/sponsorship/{id}', [ProposalControllerApi::class, 'updateProposalSponsorship'])->middleware('auth:sanctum');
 Route::delete('/proposal/{id}', [ProposalControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
 

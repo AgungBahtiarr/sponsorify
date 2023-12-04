@@ -23,11 +23,19 @@ class SponsorshipControllerApi extends Controller
         return response()->json($sponsorships);
     }
 
+    public function count($id)
+    {
+        $sponsorships = Sponsorship::where('id_users', $id)->get()->count();
+        return response()->json([
+            'count' => $sponsorships
+        ]);
+    }
+
     public function sponsorshipWithCategory($idCategory)
     {
         // $sponsorships = Sponsorship::all()->where('id_category', $idCategory);
 
-        $sponsorships = Sponsorship::with("category", "user")->where('id_category',$idCategory)->get();
+        $sponsorships = Sponsorship::with("category", "user")->where('id_category', $idCategory)->get();
 
 
         return response()->json($sponsorships);
@@ -50,7 +58,7 @@ class SponsorshipControllerApi extends Controller
             return response()->json([
                 'messeage' => 'Periksa kembali data anda',
                 'error' => $validator->errors()
-            ]);
+            ], 400);
         }
 
         //Get image
@@ -71,7 +79,8 @@ class SponsorshipControllerApi extends Controller
                     'email' => $request->email,
                     'address' => $request->address,
                     'id_category' => $request->id_category,
-                    'id_users' => $user->id
+                    'id_users' => $user->id,
+                    'message' => $request->message
                 ]);
             } catch (QueryException $e) {
                 return response()->json([
@@ -103,6 +112,14 @@ class SponsorshipControllerApi extends Controller
         return response()->json($sponsorships);
     }
 
+    public function detailAuthSponsorship()
+    {
+        $user = Auth::user();
+        $sponsorship = Sponsorship::where('id_users', $user->id)->with("category", "user")->first();
+
+        return response()->json($sponsorship);
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -113,7 +130,7 @@ class SponsorshipControllerApi extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'description' => 'required',
-            'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'address' => 'required',
             'id_category' => 'required'
         ]);
@@ -121,7 +138,7 @@ class SponsorshipControllerApi extends Controller
             return response()->json([
                 'messeage' => 'Periksa kembali data anda',
                 'error' => $validator->errors()
-            ]);
+            ], 401);
         }
 
         try {
@@ -138,33 +155,59 @@ class SponsorshipControllerApi extends Controller
 
         //Get image
         $image = $request->file('profile_photo');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('profile_photo'), $imageName);
-        $imagePath = 'profile_photo/' . $imageName;
 
-
-        $user = Auth::user();
-        $role = $user->id_role;
-        if (($role == 2) && ($sponsorship->id_users == $user->id)) {
-            $sponsorship->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'profile_photo' => $imagePath,
-                'email' => $request->email,
-                'address' => $request->address,
-                'id_category' => $request->id_category,
-                'id_users' => $user->id
-            ]);
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Berhasil Ditambahkan',
-                'data' => $sponsorship
-            ], 201);
+        if ($image != null) {
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('profile_photo'), $imageName);
+            $imagePath = 'profile_photo/' . $imageName;
+            $user = Auth::user();
+            $role = $user->id_role;
+            if (($role == 2) && ($sponsorship->id_users == $user->id)) {
+                $sponsorship->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'profile_photo' => $imagePath,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'id_category' => $request->id_category,
+                    'id_users' => $user->id,
+                    'message' => $request->message
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Diupdate',
+                    'data' => $sponsorship
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Role tidak diizinkan, Data Gagal Ditambahkan',
+                ], 401);
+            }
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Role tidak diizinkan, Data Gagal Ditambahkan',
-            ], 401);
+            $user = Auth::user();
+            $role = $user->id_role;
+            if (($role == 2) && ($sponsorship->id_users == $user->id)) {
+                $sponsorship->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'id_category' => $request->id_category,
+                    'id_users' => $user->id,
+                    'message' => $request->message
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Diupdate',
+                    'data' => $sponsorship
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Role tidak diizinkan, Data Gagal Ditambahkan',
+                ], 401);
+            }
         }
     }
 

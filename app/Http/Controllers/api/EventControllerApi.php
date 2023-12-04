@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Proposal;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -87,7 +88,15 @@ class EventControllerApi extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        try {
+            $event = Event::with('users')->find($id);
+            return response()->json($event, 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                "success" => false
+            ], 400);
+        }
     }
 
     /**
@@ -156,6 +165,7 @@ class EventControllerApi extends Controller
             $event = Event::findOrFail($id);
             $eventId = $event->id;
             $user = Auth::user();
+            $proposal = Proposal::where('id_event', $eventId);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
@@ -166,6 +176,7 @@ class EventControllerApi extends Controller
         if (($user->id_role == 1) && ($event->id_users == $user->id)) {
             $imagePath = public_path($event->profile_photo);
             File::delete($imagePath);
+            $proposal->delete();
             $event->delete();
             return response()->json([
                 'success' => true,
