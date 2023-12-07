@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryControllerApi extends Controller
 {
@@ -18,21 +19,40 @@ class CategoryControllerApi extends Controller
     }
 
 
-    public function sponsorshipWithCategory($idCategory)
-    {
+    // public function sponsorshipWithCategory($idCategory)
+    // {
 
-        $categories = Category::all()->where('id', $idCategory);
+    //     $categories = Category::all()->where('id', $idCategory);
 
-        return response()->json($categories, 200);
+    //     return response()->json($categories, 200);
 
-    }
+    // }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if ($user->id_role == 3) {
+            $data = [
+                'category' => $request->category,
+                'description' => $request->description,
+            ];
+            $category = Category::create($data);
+
+            return response()->json([
+                'success' => true,
+                'data' => $category
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Role tidak diizinkan"
+            ], 403);
+        }
+
     }
 
     /**
@@ -48,7 +68,26 @@ class CategoryControllerApi extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = Auth::user();
+
+        if ($user->id_role == 3) {
+            $data = [
+                'category' => $request->category,
+                'description' => $request->description,
+            ];
+            $category = Category::findOrFail($id);
+
+            $category->update($data);
+            return response()->json([
+                'success' => true,
+                'data' => $category
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Role tidak diizinkan"
+            ], 403);
+        }
     }
 
     /**
@@ -56,6 +95,20 @@ class CategoryControllerApi extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = Auth::user();
+        $category = Category::findOrFail($id);
+        if ($user->id_role) {
+            $category->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Data berhasil dihapus"
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Role tidak diizinkan"
+            ], 403);
+        }
     }
 }

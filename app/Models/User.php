@@ -45,15 +45,36 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class,'id_role');
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function sponsorship(){
+    public function sponsorship()
+    {
         return $this->hasMany(Sponsorship::class);
     }
 
-    public function event(){
-        return $this->hasMany(Event::class);
+    public function event()
+    {
+        return $this->hasMany(Event::class, 'id_users');
+    }
+    public function proposal()
+    {
+        return $this->hasMany(Proposal::class, 'id_users');
+    }
+
+
+    protected static function booted()
+    {
+        static::deleting(function (User $user) { // before delete() method call this
+            $user->proposal()->delete();
+            if ($user->id_role == 1) {
+                $user->event()->delete();
+            } else {
+                $user->sponsorship()->delete();
+            }
+
+        });
     }
 }

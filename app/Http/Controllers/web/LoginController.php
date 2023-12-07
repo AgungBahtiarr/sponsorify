@@ -34,8 +34,7 @@ class LoginController extends Controller
 
         if ($response->getStatusCode() == 200) {
             $token = $response["token"];
-            Cookie::queue(Cookie::make('token', $token, 60));
-
+            Cookie::queue(Cookie::make('token', $token));
             return redirect('/admin');
         } else {
             return view("admin.login", ['failed' => true]);

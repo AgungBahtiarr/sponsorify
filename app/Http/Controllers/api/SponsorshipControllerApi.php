@@ -33,12 +33,8 @@ class SponsorshipControllerApi extends Controller
 
     public function sponsorshipWithCategory($idCategory)
     {
-        // $sponsorships = Sponsorship::all()->where('id_category', $idCategory);
-
         $sponsorships = Sponsorship::with("category", "user")->where('id_category', $idCategory)->get();
-
-
-        return response()->json($sponsorships);
+        return response()->json($sponsorships,200);
     }
 
     /**

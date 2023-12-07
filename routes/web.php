@@ -28,7 +28,14 @@ Route::post('/admin/login', [LoginController::class, 'login']);
 
 
 Route::get('/admin', [DashboardController::class, 'index']);
+
+
+// User Management
 Route::get('/admin/user', [UserController::class, 'index']);
+Route::patch('/admin/user/{id}', [UserController::class, 'update']);
+Route::delete('/admin/user/{id}', [UserController::class, 'destroy']);
+
+
 Route::get('/admin/role', [RoleController::class, 'index']);
 Route::get('/admin/category', [CategoryController::class, 'index']);
 Route::get('/admin/status', [StatusController::class, 'index']);

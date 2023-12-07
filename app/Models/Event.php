@@ -14,6 +14,18 @@ class Event extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class,'id_users');
+        return $this->belongsTo(User::class, 'id_users');
+    }
+
+    public function proposal()
+    {
+        return $this->hasMany(Proposal::class, 'id_event');
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function (Event $event) { // before delete() method call this
+            $event->proposal()->delete();
+        });
     }
 }

@@ -130,6 +130,7 @@ class ProposalControllerApi extends Controller
      */
     public function show(Proposal $proposal)
     {
+
     }
 
     /**
@@ -190,7 +191,6 @@ class ProposalControllerApi extends Controller
             'message' => "berhasil mengupdate data",
             'data' => $proposal
         ], 201);
-
     }
 
     public function updateProposalSponsorship(Request $request, $id)
