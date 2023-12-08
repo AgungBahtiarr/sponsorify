@@ -4,6 +4,7 @@ use App\Http\Controllers\api\CategoryControllerApi;
 use App\Http\Controllers\api\EventControllerApi;
 use App\Http\Controllers\api\ProposalControllerApi;
 use App\Http\Controllers\api\RoleController;
+use App\Http\Controllers\api\RoleControllerApi;
 use App\Http\Controllers\api\SavedControllerApi;
 use App\Http\Controllers\api\SponsorshipControllerApi;
 use App\Http\Controllers\api\UnLoginController;
@@ -39,11 +40,11 @@ Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sa
 Route::post('/register', [AuthController::class, 'register']);
 
 // User
+Route::patch('/user/current', [UserControllerApi::class, 'updateCurrentUser'])->middleware('auth:sanctum');
 Route::patch('/user/{id}', [UserControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/user/{id}', [UserControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 Route::get('/user', [UserControllerApi::class, 'index'])->middleware('auth:sanctum');
 Route::get('/user/current', [UserControllerApi::class, 'authUser'])->middleware('auth:sanctum');
-Route::patch('/user/current', [UserControllerApi::class, 'updateCurrentUser'])->middleware('auth:sanctum');
 
 // Handle UnLogin
 Route::get('', [UnLoginController::class, 'index'])->name('login');
@@ -88,7 +89,11 @@ Route::post('/saved', [SavedControllerApi::class, 'store'])->middleware('auth:sa
 Route::delete('/saved/{id}', [SavedControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
 // role
-Route::get('/roles', [RoleController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/roles', [RoleControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::post('/roles', [RoleControllerApi::class, 'store'])->middleware('auth:sanctum');
+Route::patch('/roles/{id}', [RoleControllerApi::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/roles/{id}', [RoleControllerApi::class, 'destroy'])->middleware('auth:sanctum');
+
 
 
 

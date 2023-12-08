@@ -35,8 +35,13 @@ Route::get('/admin/user', [UserController::class, 'index']);
 Route::patch('/admin/user/{id}', [UserController::class, 'update']);
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy']);
 
-
+// Role Management
 Route::get('/admin/role', [RoleController::class, 'index']);
+Route::post('/admin/role', [RoleController::class, 'store']);
+Route::patch('/admin/role/{id}', [RoleController::class, 'update']);
+Route::delete('/admin/role/{id}', [RoleController::class, 'destroy']);
+
+
 Route::get('/admin/category', [CategoryController::class, 'index']);
 Route::get('/admin/status', [StatusController::class, 'index']);
 
