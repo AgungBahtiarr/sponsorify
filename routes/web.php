@@ -41,7 +41,12 @@ Route::post('/admin/role', [RoleController::class, 'store']);
 Route::patch('/admin/role/{id}', [RoleController::class, 'update']);
 Route::delete('/admin/role/{id}', [RoleController::class, 'destroy']);
 
-
+// Category Management
 Route::get('/admin/category', [CategoryController::class, 'index']);
+Route::post('/admin/category', [CategoryController::class, 'store']);
+Route::patch('/admin/category/{id}', [CategoryController::class, 'update']);
+Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy']);
+
+
 Route::get('/admin/status', [StatusController::class, 'index']);
 

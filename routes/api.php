@@ -3,7 +3,6 @@
 use App\Http\Controllers\api\CategoryControllerApi;
 use App\Http\Controllers\api\EventControllerApi;
 use App\Http\Controllers\api\ProposalControllerApi;
-use App\Http\Controllers\api\RoleController;
 use App\Http\Controllers\api\RoleControllerApi;
 use App\Http\Controllers\api\SavedControllerApi;
 use App\Http\Controllers\api\SponsorshipControllerApi;

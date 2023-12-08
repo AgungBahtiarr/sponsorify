@@ -11,12 +11,8 @@
                     <tr>
                         <th>Id.</th>
                         <th>Role Name</th>
-                        <th>Action
-                            <div class="addButton">
-
-                            </div>
-                        </th>
-                        <th><button class="btn btn-success" onclick="my_modal_1000.showModal()">Add +</button>
+                        <th>Action</th>
+                        <th><button class="btn btn-success" onclick="my_modal_1000.showModal()">Add Role</button>
                             <dialog id="my_modal_1000" class="modal">
                                 <div class="modal-box">
                                     <form method="dialog">

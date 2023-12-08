@@ -45,7 +45,7 @@ class CategoryControllerApi extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $category
-            ], 200);
+            ], 201);
         } else {
             return response()->json([
                 'success' => false,
@@ -103,7 +103,7 @@ class CategoryControllerApi extends Controller
             return response()->json([
                 'success' => true,
                 'message' => "Data berhasil dihapus"
-            ]);
+            ], 200);
         } else {
             return response()->json([
                 'success' => false,
