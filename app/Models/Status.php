@@ -9,6 +9,6 @@ class Status extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ['status', 'description'];
     protected $hidden = ['created_at', 'updated_at'];
 }

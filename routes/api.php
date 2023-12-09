@@ -6,6 +6,7 @@ use App\Http\Controllers\api\ProposalControllerApi;
 use App\Http\Controllers\api\RoleControllerApi;
 use App\Http\Controllers\api\SavedControllerApi;
 use App\Http\Controllers\api\SponsorshipControllerApi;
+use App\Http\Controllers\api\StatusControllerApi;
 use App\Http\Controllers\api\UnLoginController;
 use App\Http\Controllers\api\UserControllerApi;
 use App\Http\Controllers\AuthController;
@@ -92,6 +93,13 @@ Route::get('/roles', [RoleControllerApi::class, 'index'])->middleware('auth:sanc
 Route::post('/roles', [RoleControllerApi::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/roles/{id}', [RoleControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/roles/{id}', [RoleControllerApi::class, 'destroy'])->middleware('auth:sanctum');
+
+
+// Status
+Route::get('/status', [StatusControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::post('/status', [StatusControllerApi::class, 'store'])->middleware('auth:sanctum');
+Route::patch('/status/{id}', [StatusControllerApi::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/status/{id}', [StatusControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
 
 
