@@ -47,6 +47,8 @@ Route::post('/admin/category', [CategoryController::class, 'store']);
 Route::patch('/admin/category/{id}', [CategoryController::class, 'update']);
 Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy']);
 
-
+// Status Management
 Route::get('/admin/status', [StatusController::class, 'index']);
-
+Route::post('/admin/status', [StatusController::class, 'store']);
+Route::patch('/admin/status/{id}', [StatusController::class, 'update']);
+Route::delete('/admin/status/{id}', [StatusController::class, 'destroy']);
