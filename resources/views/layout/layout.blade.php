@@ -34,14 +34,25 @@
             <div class="flex flex-col justify-center items-center px-6 py-12 bg-base-200">
                 <h1 class="text-2xl font-bold">Sponsorify</h1>
             </div>
-            <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                <!-- Sidebar content here -->
-                <li><a href="/admin">Dashboard</a></li>
-                <li><a href="/admin/user">User Management</a></li>
-                <li><a href="/admin/role">Role Management</a></li>
-                <li><a href="/admin/category">Category Management</a></li>
-                <li><a href="/admin/status">Status Management</a></li>
-            </ul>
+            <div class="navmenu p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col justify-between">
+                <ul class="menu">
+                    <!-- Sidebar content here -->
+                    <li><a href="/admin">Dashboard</a></li>
+                    <li><a href="/admin/user">User Management</a></li>
+                    <li><a href="/admin/role">Role Management</a></li>
+                    <li><a href="/admin/category">Category Management</a></li>
+                    <li><a href="/admin/status">Status Management</a></li>
+                </ul>
+                <ul class="mb-40 menu rounded-lg min-h-full bg-red-500 flex items-center">
+                    <li>
+                        <form action="/admin/logout" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class=" text-white font-semibold">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
         </div>
     </div>

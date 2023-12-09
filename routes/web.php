@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\web\LogoutController;
 use App\Http\Controllers\web\StatusController;
 use App\Http\Controllers\web\RoleController;
 use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\LoginController;
 use App\Http\Controllers\web\UserController;
 use App\Http\Controllers\web\CategoryController;
+use App\Http\Middleware\isLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,36 +21,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/admin/login', [LoginController::class, 'index']);
 Route::post('/admin/login', [LoginController::class, 'login']);
 
+Route::middleware([isLogin::class])->group(function () {
+    Route::get('/', function () {
+        return redirect('/admin/dashboard');
+    });
 
-Route::get('/admin', [DashboardController::class, 'index']);
+    // Logout
+    Route::delete('/admin/logout', [LogoutController::class, 'logout']);
 
 
-// User Management
-Route::get('/admin/user', [UserController::class, 'index']);
-Route::patch('/admin/user/{id}', [UserController::class, 'update']);
-Route::delete('/admin/user/{id}', [UserController::class, 'destroy']);
+    // Dashboard
+    Route::get('/admin', [DashboardController::class, 'index']);
 
-// Role Management
-Route::get('/admin/role', [RoleController::class, 'index']);
-Route::post('/admin/role', [RoleController::class, 'store']);
-Route::patch('/admin/role/{id}', [RoleController::class, 'update']);
-Route::delete('/admin/role/{id}', [RoleController::class, 'destroy']);
+    // User Management
+    Route::get('/admin/user', [UserController::class, 'index']);
+    Route::patch('/admin/user/{id}', [UserController::class, 'update']);
+    Route::delete('/admin/user/{id}', [UserController::class, 'destroy']);
 
-// Category Management
-Route::get('/admin/category', [CategoryController::class, 'index']);
-Route::post('/admin/category', [CategoryController::class, 'store']);
-Route::patch('/admin/category/{id}', [CategoryController::class, 'update']);
-Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy']);
+    // Role Management
+    Route::get('/admin/role', [RoleController::class, 'index']);
+    Route::post('/admin/role', [RoleController::class, 'store']);
+    Route::patch('/admin/role/{id}', [RoleController::class, 'update']);
+    Route::delete('/admin/role/{id}', [RoleController::class, 'destroy']);
 
-// Status Management
-Route::get('/admin/status', [StatusController::class, 'index']);
-Route::post('/admin/status', [StatusController::class, 'store']);
-Route::patch('/admin/status/{id}', [StatusController::class, 'update']);
-Route::delete('/admin/status/{id}', [StatusController::class, 'destroy']);
+    // Category Management
+    Route::get('/admin/category', [CategoryController::class, 'index']);
+    Route::post('/admin/category', [CategoryController::class, 'store']);
+    Route::patch('/admin/category/{id}', [CategoryController::class, 'update']);
+    Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy']);
+
+    // Status Management
+    Route::get('/admin/status', [StatusController::class, 'index']);
+    Route::post('/admin/status', [StatusController::class, 'store']);
+    Route::patch('/admin/status/{id}', [StatusController::class, 'update']);
+    Route::delete('/admin/status/{id}', [StatusController::class, 'destroy']);
+});
+
+
