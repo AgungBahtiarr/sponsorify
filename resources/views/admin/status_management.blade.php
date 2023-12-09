@@ -79,7 +79,7 @@
                                                         <span class="label-text">status Description</span>
                                                     </div>
                                                     <input type="text" name="description" placeholder="Type here"
-                                                        value={{ $status->description }}
+                                                        value="{{ $status->description }}"
                                                         class="input input-bordered w-full max-w-xs" @required(true) />
                                                 </label>
                                                 <button class="btn btn-success my-4">Submit</button>
