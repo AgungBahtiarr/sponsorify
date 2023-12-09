@@ -10,7 +10,7 @@
                     <i class="fa-regular fa-user fa-2xl"></i>
                 </div>
                 <div class="stat-title">Total Users</div>
-                <div class="stat-value">31K</div>
+                <div class="stat-value">{{ count($users) }}</div>
                 <div class="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
@@ -19,7 +19,7 @@
                     <i class="fa-solid fa-users fa-2xl"></i>
                 </div>
                 <div class="stat-title">Event Organaizer</div>
-                <div class="stat-value">4,200</div>
+                <div class="stat-value">{{ count($events) }}</div>
                 <div class="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-users fa-2xl"></i>
                 </div>
                 <div class="stat-title">Sponsorship</div>
-                <div class="stat-value">1,200</div>
+                <div class="stat-value">{{ count($sponsorships) }}</div>
                 <div class="stat-desc">↘︎ 90 (14%)</div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     <i class="fa-solid fa-people-arrows fa-2xl"></i>
                 </div>
                 <div class="stat-title">Role Users</div>
-                <div class="stat-value">31K</div>
+                <div class="stat-value">{{ count($roles) }}</div>
                 <div class="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
@@ -48,7 +48,7 @@
                     <i class="fa-solid fa-layer-group fa-2xl"></i>
                 </div>
                 <div class="stat-title">Category</div>
-                <div class="stat-value">4,200</div>
+                <div class="stat-value">{{ count($categories) }}</div>
                 <div class="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
@@ -57,7 +57,7 @@
                     <i class="fa-solid fa-clipboard fa-2xl"></i>
                 </div>
                 <div class="stat-title">Status</div>
-                <div class="stat-value">1,200</div>
+                <div class="stat-value">{{ count($statuses) }}</div>
                 <div class="stat-desc">↘︎ 90 (14%)</div>
             </div>
         </div>

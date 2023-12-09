@@ -33,6 +33,32 @@ class UserControllerApi extends Controller
         }
 
     }
+    public function indexEvent()
+    {
+        try {
+            $users = User::where('id_role', 1)->get();
+            return response()->json($users, 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                "success" => false,
+                "error" => $e
+            ], 500);
+        }
+    }
+
+    public function indexSponsorship()
+    {
+        try {
+            $users = User::where('id_role', 2)->get();
+            return response()->json($users, 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                "success" => false,
+                "error" => $e
+            ], 500);
+        }
+
+    }
     public function authUser()
     {
         try {

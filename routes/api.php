@@ -44,6 +44,8 @@ Route::patch('/user/current', [UserControllerApi::class, 'updateCurrentUser'])->
 Route::patch('/user/{id}', [UserControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/user/{id}', [UserControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 Route::get('/user', [UserControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::get('/user/event', [UserControllerApi::class, 'indexEvent'])->middleware('auth:sanctum');
+Route::get('/user/sponsorship', [UserControllerApi::class, 'indexSponsorship'])->middleware('auth:sanctum');
 Route::get('/user/current', [UserControllerApi::class, 'authUser'])->middleware('auth:sanctum');
 
 // Handle UnLogin

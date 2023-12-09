@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 
@@ -19,8 +17,6 @@ class LogoutController extends Controller
             Cookie::queue(Cookie::make('token', null));
             return redirect('/admin/login');
         }
-        //  else {
-        //     return $response;
-        // }
+
     }
 }
