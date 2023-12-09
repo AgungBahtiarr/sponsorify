@@ -77,8 +77,8 @@
                                                     <div class="label">
                                                         <span class="label-text">Category Description</span>
                                                     </div>
-                                                    <input type="text" name="description" placeholder="Type here"
-                                                        value={{ $category->category }}
+                                                    <input type="text" name="description"
+                                                        value="{{ $category->description }}" placeholder="Type here"
                                                         class="input input-bordered w-full max-w-xs" @required(true) />
                                                 </label>
                                                 <button class="btn btn-success my-4">Submit</button>
