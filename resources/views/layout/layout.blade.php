@@ -42,6 +42,8 @@
                     <li><a href="/admin/role">Role Management</a></li>
                     <li><a href="/admin/category">Category Management</a></li>
                     <li><a href="/admin/status">Status Management</a></li>
+                    <li><a href="/admin/sponsor">Sponsor Management</a></li>
+
                 </ul>
                 <ul class="mb-40 menu rounded-lg min-h-full bg-red-500 flex items-center">
                     <li>

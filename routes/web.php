@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\web\LogoutController;
+use App\Http\Controllers\web\SponsorController;
 use App\Http\Controllers\web\StatusController;
 use App\Http\Controllers\web\RoleController;
 use App\Http\Controllers\web\DashboardController;
@@ -32,7 +33,6 @@ Route::middleware([isLogin::class])->group(function () {
     // Logout
     Route::delete('/admin/logout', [LogoutController::class, 'logout']);
 
-
     // Dashboard
     Route::get('/admin', [DashboardController::class, 'index']);
 
@@ -58,6 +58,11 @@ Route::middleware([isLogin::class])->group(function () {
     Route::post('/admin/status', [StatusController::class, 'store']);
     Route::patch('/admin/status/{id}', [StatusController::class, 'update']);
     Route::delete('/admin/status/{id}', [StatusController::class, 'destroy']);
+
+    // Sponsor Management
+    Route::get('/admin/sponsor', [SponsorController::class, 'index']);
+    Route::delete('/admin/sponsor/{id}', [SponsorController::class, 'destroy']);
+
 });
 
 

@@ -31,8 +31,15 @@ class Sponsorship extends Model
         return $this->belongsTo(User::class, 'id_users');
     }
 
-    // public function saved()
-    // {
-    //     return $this->hasMany(Saved::class, 'id_');
-    // }
+    public function proposal()
+    {
+        return $this->hasMany(Proposal::class, 'id_sponsorship');
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function (Sponsorship $sponsorship) { // before delete() method call this
+            $sponsorship->proposal()->delete();
+        });
+    }
 }

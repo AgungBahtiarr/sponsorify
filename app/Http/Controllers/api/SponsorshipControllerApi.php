@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sponsorship;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class SponsorshipControllerApi extends Controller
     public function sponsorshipWithCategory($idCategory)
     {
         $sponsorships = Sponsorship::with("category", "user")->where('id_category', $idCategory)->get();
-        return response()->json($sponsorships,200);
+        return response()->json($sponsorships, 200);
     }
 
     /**
@@ -221,7 +222,7 @@ class SponsorshipControllerApi extends Controller
             ], 400);
         }
 
-        if ((Auth::user()->id_role == 2) && ($sponsorship->id_users == Auth::user()->id)) {
+        if (((Auth::user()->id_role == 2) && ($sponsorship->id_users == Auth::user()->id) || (Auth::user()->id_role == 3))) {
             $imagePath = public_path($sponsorship->profile_photo);
             File::delete($imagePath);
             $sponsorship->delete();
@@ -230,6 +231,12 @@ class SponsorshipControllerApi extends Controller
                 'message' => 'User Berhasil Dihapus',
                 'data' => $sponsorship
             ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Role tidak diizinkan',
+            ]);
         }
+
     }
 }
