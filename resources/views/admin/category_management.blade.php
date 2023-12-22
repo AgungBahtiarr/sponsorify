@@ -1,6 +1,8 @@
 @extends('layout.layout')
 
 @section('title', 'Category Management')
+@section('page', 'Category Management')
+
 
 @section('content')
     <div class="mx-8 mt-8">

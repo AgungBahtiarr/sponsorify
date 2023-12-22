@@ -1,66 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\web;
 
-use App\Http\Requests\StoreeventRequest;
-use App\Http\Requests\UpdateeventRequest;
-use App\Models\Event;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Http;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+
+        $accessToken = Cookie::get('token');
+        $url = env('API_URL') . 'event';
+        $response = Http::withToken($accessToken)->get($url);
+        return view('admin.event_management', [
+            'error' => false,
+            'data' => json_decode($response)
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreeventRequest $request)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(event $event)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(event $event)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateeventRequest $request, event $event)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(event $event)
-    {
-        //
+        $accessToken = Cookie::get('token');
+        $url = env('API_URL') . 'event/' . $id;
+        $response = Http::withToken($accessToken)->delete($url);
+        return redirect('/admin/event');
     }
 }

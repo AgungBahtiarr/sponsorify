@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\web\EventController;
 use App\Http\Controllers\web\LogoutController;
 use App\Http\Controllers\web\SponsorController;
 use App\Http\Controllers\web\StatusController;
@@ -63,6 +64,9 @@ Route::middleware([isLogin::class])->group(function () {
     Route::get('/admin/sponsor', [SponsorController::class, 'index']);
     Route::delete('/admin/sponsor/{id}', [SponsorController::class, 'destroy']);
 
+    // Event Management
+    Route::get('/admin/event', [EventController::class, 'index']);
+    Route::delete('/admin/event/{id}', [EventController::class, 'destroy']);
 });
 
 

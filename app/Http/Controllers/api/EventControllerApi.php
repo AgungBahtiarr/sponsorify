@@ -21,7 +21,11 @@ class EventControllerApi extends Controller
     public function index()
     {
         $user = Auth::user();
-        $events = Event::with('users')->where("id_users", $user->id)->get();
+        if ($user->id_role == 1) {
+            $events = Event::with('users')->where("id_users", $user->id)->get();
+        } elseif ($user->id_role == 3) {
+            $events = Event::with('users')->get();
+        }
 
         return response()->json($events);
     }
@@ -173,7 +177,7 @@ class EventControllerApi extends Controller
             ], 400);
         }
 
-        if (($user->id_role == 1) && ($event->id_users == $user->id)) {
+        if ((($user->id_role == 1) && ($event->id_users == $user->id)) || $user->id_role == 3) {
             $imagePath = public_path($event->profile_photo);
             File::delete($imagePath);
             $proposal->delete();

@@ -8,6 +8,8 @@
     <title>@yield('title') - Sponsorify</title>
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/d2632f5afd.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -21,8 +23,8 @@
                     </path>
                 </svg>
             </label>
-            <div class="flex justify-center w-full lg:mt-12">
-                <h1 class="text-4xl font-semibold">Sponsorify</h1>
+            <div class="flex justify-center w-full lg:mt-12 ">
+                <h1 class="text-4xl font-semibold">Sponsorify - @yield('page')</h1>
             </div>
 
             <div class="container w-full h-full">
@@ -37,13 +39,13 @@
             <div class="navmenu p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col justify-between">
                 <ul class="menu">
                     <!-- Sidebar content here -->
-                    <li><a href="/admin">Dashboard</a></li>
-                    <li><a href="/admin/user">User Management</a></li>
-                    <li><a href="/admin/role">Role Management</a></li>
-                    <li><a href="/admin/category">Category Management</a></li>
-                    <li><a href="/admin/status">Status Management</a></li>
-                    <li><a href="/admin/sponsor">Sponsor Management</a></li>
-
+                    <li><a href="/admin"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <li><a href="/admin/user"><i class="fa-solid fa-user"></i>User Management</a></li>
+                    <li><a href="/admin/role"><i class="fa-solid fa-users-gear"></i>Role Management</a></li>
+                    <li><a href="/admin/category"><i class="fa-solid fa-list"></i>Category Management</a></li>
+                    <li><a href="/admin/status"><i class="fa-solid fa-check-to-slot"></i>Status Management</a></li>
+                    <li><a href="/admin/sponsor"><i class="fa-solid fa-briefcase"></i>Sponsor Management</a></li>
+                    <li><a href="/admin/event"><i class="fa-solid fa-calendar-days"></i>Event Management</a></li>
                 </ul>
                 <ul class="mb-40 menu rounded-lg min-h-full bg-red-500 flex items-center">
                     <li>
@@ -58,6 +60,7 @@
 
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 </body>
 
 </html>

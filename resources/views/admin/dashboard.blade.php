@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('title', 'Dashboard')
+@section('page', 'Dashboard')
 
 @section('content')
     <div class="flex flex-col justify-center items-center h-full">
@@ -11,7 +12,6 @@
                 </div>
                 <div class="stat-title">Total Users</div>
                 <div class="stat-value">{{ count($users) }}</div>
-                <div class="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
             <div class="stat">
@@ -20,7 +20,6 @@
                 </div>
                 <div class="stat-title">Event Organaizer</div>
                 <div class="stat-value">{{ count($events) }}</div>
-                <div class="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
             <div class="stat">
@@ -29,7 +28,6 @@
                 </div>
                 <div class="stat-title">Sponsorship</div>
                 <div class="stat-value">{{ count($sponsorships) }}</div>
-                <div class="stat-desc">↘︎ 90 (14%)</div>
             </div>
         </div>
 
@@ -40,7 +38,6 @@
                 </div>
                 <div class="stat-title">Role Users</div>
                 <div class="stat-value">{{ count($roles) }}</div>
-                <div class="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
             <div class="stat">
@@ -49,7 +46,6 @@
                 </div>
                 <div class="stat-title">Category</div>
                 <div class="stat-value">{{ count($categories) }}</div>
-                <div class="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
             <div class="stat">
@@ -58,7 +54,6 @@
                 </div>
                 <div class="stat-title">Status</div>
                 <div class="stat-value">{{ count($statuses) }}</div>
-                <div class="stat-desc">↘︎ 90 (14%)</div>
             </div>
         </div>
     </div>

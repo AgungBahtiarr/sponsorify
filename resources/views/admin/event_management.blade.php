@@ -1,8 +1,7 @@
 @extends('layout.layout')
 
-@section('title', 'Sponsor Mangement')
-@section('page', 'Sponsor Mangement')
-
+@section('title', 'Event Mangement')
+@section('page', 'Event Mangement')
 
 @section('content')
 
@@ -15,37 +14,33 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Description</th>
-                        <th>Address</th>
-                        <th>Category</th>
                         <th>User</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach ($data as $sponsor)
+                    @foreach ($data as $event)
                         <tr>
                             <td>
                                 <div class="flex items-center gap-3">
                                     <div class="avatar">
                                         <div class="mask mask-squircle w-12 h-12">
-                                            <img src={{ url($sponsor->profile_photo) }} alt="Sponsor Image" />
+                                            <img src={{ url($event->profile_photo) }} alt="event Image" />
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="font-bold">{{ $sponsor->name }}</div>
+                                        <div class="font-bold">{{ $event->name }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                {{ $sponsor->email }}
+                                {{ $event->email }}
                             </td>
-                            <td>{{ $sponsor->description }}</td>
-                            <td>{{ $sponsor->address }}</td>
-                            <td>{{ $sponsor->category->category }}</td>
-                            <td>{{ $sponsor->user->name }}</td>
+                            <td>{{ $event->description }}</td>
+                            <td>{{ $event->users->name }}</td>
                             <th>
-                                <form action="/admin/sponsor/{{ $sponsor->id }}" method="post">
+                                <form action="/admin/event/{{ $event->id }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-error">Delete</button>
