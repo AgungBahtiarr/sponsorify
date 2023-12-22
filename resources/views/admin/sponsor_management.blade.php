@@ -14,15 +14,12 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Description</th>
                         <th>Address</th>
                         <th>Category</th>
-                        <th>User</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($data as $sponsor)
                         <tr>
                             <td>
@@ -40,16 +37,17 @@
                             <td>
                                 {{ $sponsor->email }}
                             </td>
-                            <td>{{ $sponsor->description }}</td>
                             <td>{{ $sponsor->address }}</td>
                             <td>{{ $sponsor->category->category }}</td>
-                            <td>{{ $sponsor->user->name }}</td>
                             <th>
-                                <form action="/admin/sponsor/{{ $sponsor->id }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-error">Delete</button>
-                                </form>
+                                <div class="action flex gap-2 ">
+                                    <form action="/admin/sponsor/{{ $sponsor->id }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-error">Delete</button>
+                                    </form>
+                                </div>
+
                             </th>
                         </tr>
                     @endforeach
