@@ -36,6 +36,11 @@ class Sponsorship extends Model
         return $this->hasMany(Proposal::class, 'id_sponsorship');
     }
 
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class,'id_sponsorship');
+    }
+
     protected static function booted()
     {
         static::deleting(function (Sponsorship $sponsorship) { // before delete() method call this

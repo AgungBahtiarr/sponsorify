@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('title', 'Status Management')
-@section('page', 'Sponsor Mangement')
+@section('page', 'Status Mangement')
 
 
 @section('content')

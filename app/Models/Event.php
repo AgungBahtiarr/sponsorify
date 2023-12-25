@@ -21,6 +21,11 @@ class Event extends Model
     {
         return $this->hasMany(Proposal::class, 'id_event');
     }
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'id_event');
+    }
+
 
     protected static function booted()
     {

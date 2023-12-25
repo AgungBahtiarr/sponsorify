@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="lofi">
 
 <head>
     <meta charset="UTF-8">
@@ -44,8 +44,6 @@
             </form>
         </div>
     </div>
-
-
 </body>
 
 </html>

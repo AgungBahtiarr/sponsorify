@@ -41,6 +41,39 @@
                             <td>{{ $sponsor->category->category }}</td>
                             <th>
                                 <div class="action flex gap-2 ">
+                                    <div class="detailbutton">
+                                        <!-- Open the modal using ID.showModal() method -->
+                                        <button class="btn btn-info"
+                                            onclick="my_modal_{{ $sponsor->id }}.showModal()">Detail</button>
+                                        <dialog id="my_modal_{{ $sponsor->id }}" class="modal">
+                                            <div class="modal-box flex justify-center items-center">
+                                                <div class="card w-96 bg-base-100 shadow-xl">
+                                                    <figure><img class="w-52" src="{{ url($sponsor->profile_photo) }}"
+                                                            alt="{{ $sponsor->name }}" />
+                                                    </figure>
+                                                    <div class="card-body">
+                                                        <div class="card-title">
+                                                            <div class="title w-full flex justify-between">
+                                                                <div class="">
+                                                                    <h2>{{ $sponsor->name }}</h2>
+                                                                    <h4 class="text-sm">{{ $sponsor->category->category }}
+                                                                    </h4>
+                                                                </div>
+                                                                <h2 class="text-slate-500"><i
+                                                                        class="fa-solid fa-location-dot"></i>
+                                                                    {{ $sponsor->address }}</h2>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mt-4">Description: {{ $sponsor->description }}</p>
+                                                        <p>Email: {{ $sponsor->email }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form method="dialog" class="modal-backdrop">
+                                                <button>close</button>
+                                            </form>
+                                        </dialog>
+                                    </div>
                                     <form action="/admin/sponsor/{{ $sponsor->id }}" method="post">
                                         @csrf
                                         @method('delete')

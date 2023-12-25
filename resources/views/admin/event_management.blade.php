@@ -13,7 +13,6 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Description</th>
                         <th>User</th>
                         <th>Action</th>
                     </tr>
@@ -37,9 +36,37 @@
                             <td>
                                 {{ $event->email }}
                             </td>
-                            <td>{{ $event->description }}</td>
                             <td>{{ $event->users->name }}</td>
-                            <th>
+                            <th class="flex gap-2">
+                                <div class="detailbutton">
+                                    <!-- Open the modal using ID.showModal() method -->
+                                    <button class="btn btn-info"
+                                        onclick="my_modal_{{ $event->id }}.showModal()">Detail</button>
+                                    <dialog id="my_modal_{{ $event->id }}" class="modal">
+                                        <div class="modal-box flex justify-center items-center">
+                                            <div class="card w-96 bg-base-100 shadow-xl">
+                                                <figure><img class="w-52" src="{{ url($event->profile_photo) }}"
+                                                        alt="{{ $event->name }}" />
+                                                </figure>
+                                                <div class="card-body">
+                                                    <div class="card-title">
+                                                        <div class="title w-full flex justify-between">
+                                                            <div class="">
+                                                                <h2>{{ $event->name }}</h2>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="mt-4">Description: {{ $event->description }}</p>
+                                                    <p>Email: {{ $event->email }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <form method="dialog" class="modal-backdrop">
+                                            <button>close</button>
+                                        </form>
+                                    </dialog>
+                                </div>
                                 <form action="/admin/event/{{ $event->id }}" method="post">
                                     @csrf
                                     @method('delete')
