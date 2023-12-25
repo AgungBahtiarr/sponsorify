@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="lofi">
 
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,6 @@
     <title>@yield('title') - Sponsorify</title>
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/d2632f5afd.js" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -34,7 +32,12 @@
         <div class="drawer-side overflow-hidden">
             <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
             <div class="flex flex-col justify-center items-center px-6 py-12 bg-base-200">
-                <h1 class="text-2xl font-bold">Sponsorify</h1>
+                <label class="flex cursor-pointer gap-2">
+                    <span class="label-text">Light</span>
+                    <input type="checkbox" value="night" class="toggle theme-controller" />
+                    <span class="label-text">Dark</span>
+                </label>
+                <h1 class="text-2xl font-bold mt-4">Sponsorify</h1>
             </div>
             <div class="navmenu p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col justify-between">
                 <ul class="menu">
@@ -60,7 +63,6 @@
 
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 </body>
 
 </html>
