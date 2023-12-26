@@ -12,7 +12,13 @@ class TransactionControllerApi extends Controller
 {
     public function index()
     {
-        $transaction = Transaction::get();
+        $transaction = Transaction::with("event", "sponsorship", "proposal")->get();
+        return response()->json($transaction);
+    }
+
+    public function show($id)
+    {
+        $transaction = Transaction::with("event", "sponsorship", "proposal")->findOrFail($id);
         return response()->json($transaction);
     }
 

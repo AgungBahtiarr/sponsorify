@@ -107,6 +107,7 @@ Route::delete('/status/{id}', [StatusControllerApi::class, 'destroy'])->middlewa
 
 // Transaction
 Route::get('/transaction', [TransactionControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::get('/transaction/{id}', [TransactionControllerApi::class, 'show'])->middleware('auth:sanctum');
 Route::post('/transaction', [TransactionControllerApi::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/transaction/{id}', [TransactionControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/transaction/{id}', [TransactionControllerApi::class, 'destroy'])->middleware('auth:sanctum');
