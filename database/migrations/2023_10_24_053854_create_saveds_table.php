@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('saveds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_sponsorship')->nullable(false);
-            $table->unsignedBigInteger('id_event')->nullable(false);
             $table->unsignedBigInteger('id_users')->nullable(false);
             $table->timestamps();
         });

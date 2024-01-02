@@ -18,19 +18,6 @@ class CategoryControllerApi extends Controller
         return response()->json($categories, 200);
     }
 
-
-    // public function sponsorshipWithCategory($idCategory)
-    // {
-
-    //     $categories = Category::all()->where('id', $idCategory);
-
-    //     return response()->json($categories, 200);
-
-    // }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user = Auth::user();
