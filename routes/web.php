@@ -7,6 +7,7 @@ use App\Http\Controllers\web\StatusController;
 use App\Http\Controllers\web\RoleController;
 use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\LoginController;
+use App\Http\Controllers\web\TransactionController;
 use App\Http\Controllers\web\UserController;
 use App\Http\Controllers\web\CategoryController;
 use App\Http\Middleware\isLogin;
@@ -67,6 +68,8 @@ Route::middleware([isLogin::class])->group(function () {
     // Event Management
     Route::get('/admin/event', [EventController::class, 'index']);
     Route::delete('/admin/event/{id}', [EventController::class, 'destroy']);
+
+    Route::get("/admin/transaction", [TransactionController::class, 'index']);
 });
 
 

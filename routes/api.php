@@ -50,14 +50,6 @@ Route::get('/user/event', [UserControllerApi::class, 'indexEvent'])->middleware(
 Route::get('/user/sponsorship', [UserControllerApi::class, 'indexSponsorship'])->middleware('auth:sanctum');
 Route::get('/user/current', [UserControllerApi::class, 'authUser'])->middleware('auth:sanctum');
 
-// Handle UnLogin
-Route::get('', [UnLoginController::class, 'index'])->name('login');
-Route::post('', [UnLoginController::class, 'index'])->name('login');
-Route::put('', [UnLoginController::class, 'index'])->name('login');
-Route::patch('', [UnLoginController::class, 'index'])->name('login');
-Route::delete('', [UnLoginController::class, 'index'])->name('login');
-
-
 // Event
 Route::get('/event', [EventControllerApi::class, 'index'])->middleware('auth:sanctum');
 Route::get('/event/{id}', [EventControllerApi::class, 'show'])->middleware('auth:sanctum');
@@ -69,6 +61,7 @@ Route::delete('/event/{id}', [EventControllerApi::class, 'destroy'])->middleware
 //Sponsorship
 Route::get('/sponsorship/detail', [SponsorshipControllerApi::class, 'detailAuthSponsorship'])->middleware('auth:sanctum');
 Route::get('/sponsorship', [SponsorshipControllerApi::class, 'index'])->middleware('auth:sanctum');
+Route::post('/sponsorship/search/', [SponsorshipControllerApi::class, 'search'])->middleware('auth:sanctum');
 Route::get('/sponsorship/{id}', [SponsorshipControllerApi::class, 'show'])->middleware('auth:sanctum');
 Route::get('/sponsorship/count/{id}', [SponsorshipControllerApi::class, 'count']);
 Route::get('/sponsorship/category/{idCategory}', [SponsorshipControllerApi::class, 'sponsorshipWithCategory']);
@@ -76,6 +69,12 @@ Route::post('/sponsorship', [SponsorshipControllerApi::class, 'store'])->middlew
 Route::patch('/sponsorship/{id}', [SponsorshipControllerApi::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/sponsorship/{id}', [SponsorshipControllerApi::class, 'destroy'])->middleware('auth:sanctum');
 
+// Handle UnLogin
+Route::get('', [UnLoginController::class, 'index'])->name('login');
+Route::post('', [UnLoginController::class, 'index'])->name('login');
+Route::put('', [UnLoginController::class, 'index'])->name('login');
+Route::patch('', [UnLoginController::class, 'index'])->name('login');
+Route::delete('', [UnLoginController::class, 'index'])->name('login');
 
 // Proposal
 Route::get('/proposal', [ProposalControllerApi::class, 'index'])->middleware('auth:sanctum');

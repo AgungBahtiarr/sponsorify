@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
+        "laravel/scout": "^10.7",
         "laravel/tinker": "^2.8"
     },
     "require-dev": {

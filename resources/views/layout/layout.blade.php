@@ -43,12 +43,14 @@
                 <ul class="menu">
                     <!-- Sidebar content here -->
                     <li><a href="/admin"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <li><a href="/admin/transaction"><i class="fa-solid fa-dollar-sign"></i>Transaction</a></li>
                     <li><a href="/admin/user"><i class="fa-solid fa-user"></i>User Management</a></li>
                     <li><a href="/admin/role"><i class="fa-solid fa-users-gear"></i>Role Management</a></li>
                     <li><a href="/admin/category"><i class="fa-solid fa-list"></i>Category Management</a></li>
                     <li><a href="/admin/status"><i class="fa-solid fa-check-to-slot"></i>Status Management</a></li>
                     <li><a href="/admin/sponsor"><i class="fa-solid fa-briefcase"></i>Sponsor Management</a></li>
                     <li><a href="/admin/event"><i class="fa-solid fa-calendar-days"></i>Event Management</a></li>
+
                 </ul>
                 <ul class="mb-40 menu rounded-lg min-h-full bg-red-500 flex items-center">
                     <li>

@@ -4,8 +4,6 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 
@@ -43,56 +41,39 @@ class DashboardController extends Controller
         $oktober = [];
         $november = [];
         $desember = [];
+
+
         foreach ($transaction as $item) {
             $timestamp = strtotime($item['created_at']);
-
-            if (date('m', $timestamp) == 1) {
-                array_push($januari, $item);
+            if ((int) date('y', $timestamp) == (int) date("y")) {
+                if (date('m', $timestamp) == 1) {
+                    array_push($januari, $item);
+                } else if (date('m', $timestamp) == 2) {
+                    array_push($februari, $item);
+                } elseif (date('m', $timestamp) == 3) {
+                    array_push($maret, $item);
+                } elseif (date('m', $timestamp) == 4) {
+                    array_push($april, $item);
+                } elseif (date('m', $timestamp) == 5) {
+                    array_push($mei, $item);
+                } elseif (date('m', $timestamp) == 6) {
+                    array_push($juni, $item);
+                } elseif (date('m', $timestamp) == 7) {
+                    array_push($juli, $item);
+                } elseif (date('m', $timestamp) == 8) {
+                    array_push($agustus, $item);
+                } elseif (date('m', $timestamp) == 9) {
+                    array_push($september, $item);
+                } elseif (date('m', $timestamp) == 10) {
+                    array_push($oktober, $item);
+                } elseif (date('m', $timestamp) == 11) {
+                    array_push($november, $item);
+                } elseif (date('m', $timestamp) == 12) {
+                    array_push($desember, $item);
+                }
             }
 
-            if (date('m', $timestamp) == 2) {
-                array_push($februari, $item);
-            }
 
-            if (date('m', $timestamp) == 3) {
-                array_push($maret, $item);
-            }
-
-            if (date('m', $timestamp) == 4) {
-                array_push($april, $item);
-            }
-
-            if (date('m', $timestamp) == 5) {
-                array_push($mei, $item);
-            }
-
-            if (date('m', $timestamp) == 6) {
-                array_push($juni, $item);
-            }
-
-            if (date('m', $timestamp) == 7) {
-                array_push($juli, $item);
-            }
-
-            if (date('m', $timestamp) == 8) {
-                array_push($agustus, $item);
-            }
-
-            if (date('m', $timestamp) == 9) {
-                array_push($september, $item);
-            }
-
-            if (date('m', $timestamp) == 10) {
-                array_push($oktober, $item);
-            }
-
-            if (date('m', $timestamp) == 11) {
-                array_push($november, $item);
-            }
-
-            if (date('m', $timestamp) == 12) {
-                array_push($desember, $item);
-            }
         }
 
         $transaction_date = [count($januari), count($februari), count($maret), count($april), count($mei), count($juni), count($juli), count($agustus), count($september), count($oktober), count($november), count($desember)];

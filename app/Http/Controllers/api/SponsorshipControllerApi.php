@@ -24,6 +24,19 @@ class SponsorshipControllerApi extends Controller
         return response()->json($sponsorships);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->search;
+        $sponsorship = Sponsorship::with("category", "user")->where('name', 'like', '%' . $query . '%')->get();
+        if ($query) {
+            return response()->json($sponsorship, 200);
+        } else {
+            return response()->json([], 404);
+        }
+
+
+    }
+
     public function count($id)
     {
         $sponsorships = Sponsorship::where('id_users', $id)->get()->count();
